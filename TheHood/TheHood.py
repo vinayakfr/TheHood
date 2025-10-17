@@ -3,6 +3,7 @@
 import reflex as rx
 from assets.components.navbar import navbar
 from assets.components.post import post
+from assets.components.sidebar import sidebar
 
 from rxconfig import config
 
@@ -14,15 +15,25 @@ class State(rx.State):
 def index() -> rx.Component:
     return rx.box(
         navbar(),
-                rx.container(
+        rx.flex(
+            rx.desktop_only(
+                sidebar(), 
+                width="20%",
+            ),
+            rx.container(
+                rx.scroll_area(
                     rx.vstack(
                     post("/photo.JPG"),
                     post("Had a great day coding with Reflex!"),
                     post("/photo.JPG"),
                     spacing="4",
                     ),
-                    # width="50%",
+                    type="hover",
+                    style={"height": "85vh"},
                 ),
+            ),
+            padding = "5px"
+        ),
     )
 
 app = rx.App()
