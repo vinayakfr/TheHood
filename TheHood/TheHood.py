@@ -14,7 +14,7 @@ class State(rx.State):
 
 def index() -> rx.Component:
     return rx.box(
-        navbar(),
+        # navbar(),
         rx.flex(
             rx.desktop_only(
                 sidebar(), 
@@ -29,7 +29,7 @@ def index() -> rx.Component:
                     spacing="4",
                     ),
                     type="hover",
-                    style={"height": "85vh"},
+                    style={"height": "90vh"},
                 ),
             ),
             padding = "5px"

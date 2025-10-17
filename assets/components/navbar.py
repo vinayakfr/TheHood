@@ -13,7 +13,7 @@ def navbar() -> rx.Component:
         rx.desktop_only(
             rx.flex(
                 rx.heading(
-                    "Gang",
+                    "The Hood",
                     size="7",
                     color=rx.color_mode_cond("black", "white"),
                     transition="all 0.3s ease-in-out",
@@ -34,7 +34,7 @@ def navbar() -> rx.Component:
         rx.mobile_and_tablet(
             rx.flex(
                 rx.heading(
-                    "Gang",
+                    "The Hood",
                     size="7",
                     color=rx.color_mode_cond("black", "white"),
                     transition="all 0.3s ease-in-out",
