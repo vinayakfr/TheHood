@@ -18,7 +18,7 @@ def post(content):
                                 rx.text(
                                     "Shared a photo",
                                     font_size="xl",
-                                    color=rx.color_mode_cond("black", "white"),
+                                    
                                 ),
                                 rx.spacer(),
                                 rx.icon(tag="thumbs-up", color="white"),
@@ -55,8 +55,8 @@ def post(content):
                                     color=rx.color_mode_cond("black", "white"),
                                 ),
                                 rx.spacer(),
-                                rx.icon(tag="thumbs-up", color="white"),
-                                rx.icon(tag="thumbs-down", color="white"),
+                                rx.icon("thumbs-up"),
+                                rx.icon("thumbs-down"),
                                 spacing="3",
                                 justify="between",
                                 width="100%",

@@ -18,23 +18,15 @@ def navbar() -> rx.Component:
                     color=rx.color_mode_cond("black", "white"),
                     transition="all 0.3s ease-in-out",
                 ),
-                rx.hstack(
-                    navbar_link("Home", "/"),
-                    navbar_link("Members", "/members"),
-                    navbar_link("Invite", "/invite"),
-                    navbar_link("Help", "/contact"),
-                ),
                 rx.color_mode.button(size="3"),
                 justify="between",
                 align_items="center",
-                padding="15px 40px",
-                background_color=rx.color_mode_cond("white", "black"),
+                padding="13px 20px",
                 box_shadow="lg",
                 width="100%",
-                position="sticky",
-                top="0",
-                z_index="100",
                 border_bottom="1px solid",
+                position="sticky",
+                z_index="100",
             )
         ),
 
@@ -73,6 +65,6 @@ def navbar() -> rx.Component:
                 top="0",
                 z_index="100",
                 border_bottom="1px solid",
-            )
-        )
+            ),
+        ),
     )
