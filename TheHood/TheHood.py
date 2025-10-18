@@ -19,6 +19,7 @@ def index() -> rx.Component:
             rx.desktop_only(
                 sidebar(), 
                 width="20%",
+                
             ),
             rx.container(
                 rx.scroll_area(
@@ -31,6 +32,7 @@ def index() -> rx.Component:
                     type="hover",
                     style={"height": "90vh"},
                 ),
+                padding = "0px"
             ),
             padding = "5px"
         ),

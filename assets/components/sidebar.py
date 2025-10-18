@@ -36,7 +36,7 @@ def sidebar():
             height="100%"
         ),
         padding="20px",
-        height="90vh",
+        height="100vh",
         width="100%",
         border_radius="10px",
         background_color=rx.color_mode_cond("#F3F4F6FF", "black"),
