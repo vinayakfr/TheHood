@@ -5,6 +5,7 @@ from assets.components.navbar import navbar
 from assets.components.post import post
 from assets.components.sidebar import sidebar
 from TheHood.login import index as login
+from TheHood.signup import index as signup
 
 from rxconfig import config
 
@@ -46,3 +47,4 @@ def index() -> rx.Component:
 app = rx.App()
 app.add_page(index)
 app.add_page(login, route="/login")
+app.add_page(signup, route="/signup")

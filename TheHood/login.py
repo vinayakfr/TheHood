@@ -22,7 +22,7 @@ def login() -> rx.Component:
                         size="3",
                         text_align="left",
                     ),
-                    rx.link("Sign up", href="#", size="3"),
+                    rx.link("Sign up", href="/signup", size="3"),
                     spacing="2",
                     opacity="0.8",
                     width="100%",
