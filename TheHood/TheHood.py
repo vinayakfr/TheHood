@@ -4,6 +4,7 @@ import reflex as rx
 from assets.components.navbar import navbar
 from assets.components.post import post
 from assets.components.sidebar import sidebar
+from TheHood.login import index as login
 
 from rxconfig import config
 
@@ -29,12 +30,19 @@ def index() -> rx.Component:
                     spacing="4",
                     ),
                     type="hover",
-                    style={"height": "90vh"},
+                    style={"height": "95vh"},
                 ),
+                padding="0px",
+                height="100%",
+                width="60%",
             ),
-            padding = "5px"
+            justify="start",
+            padding = "5px",
+            height="100%",
         ),
+        height="100vh",
     )
 
 app = rx.App()
 app.add_page(index)
+app.add_page(login, route="/login")
