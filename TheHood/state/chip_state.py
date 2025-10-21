@@ -41,8 +41,6 @@ LiteralAccentColor = Literal[
 class ChipState(rx.State):
     """Reactive state for selected slang terms."""
 
-    show_post_modal: bool = False
-    post_content: str = ""
     posts: list[Post] = []
     color_map: dict[str, dict[str, str]] = {
         "amber": {"bg": "#fef3c7", "text": "#92400e"},
@@ -93,16 +91,16 @@ class ChipState(rx.State):
         ("Day Ones", "amber"),
         ("Shoot Your Shot", "mint"),
     ]
-    selected_items: list[str] = ["OG", "Ride or Die", "No Cap"]
+    selected_items: list[str] = []
 
     @rx.var
     def unselected_tags(self) -> list[tuple[str, str]]:
-        """Returns tags that are not currently selected."""
+        """Returns unselected tags."""
         return [tag for tag in self.tags if tag[0] not in self.selected_items]
 
     @rx.var
     def selected_tags(self) -> list[tuple[str, str]]:
-        """Returns tags that are currently selected."""
+        """Returns selected tags."""
         return [tag for tag in self.tags if tag[0] in self.selected_items]
 
     @rx.event
@@ -114,34 +112,13 @@ class ChipState(rx.State):
             self.selected_items.append(item)
 
     @rx.event
-    def toggle_post_modal(self):
-        """Toggles the visibility of the post creation modal."""
-        self.show_post_modal = not self.show_post_modal
-        if not self.show_post_modal:
-            self.post_content = ""
-
-    @rx.event
-    def submit_post(self):
+    def submit_post(self, form_data: dict):
         """Submits the new post and navigates to the posts page."""
-        if self.post_content.strip():
-            new_post = {"content": self.post_content, "tags": self.selected_tags}
+        content = form_data.get("post_content", "").strip()
+        if content:
+            selected_tags_to_submit = [
+                tag for tag in self.tags if tag[0] in self.selected_items
+            ]
+            new_post = {"content": content, "tags": selected_tags_to_submit}
             self.posts.insert(0, new_post)
-        yield ChipState.toggle_post_modal
-        return rx.redirect("/posts")
-
-    @rx.event
-    def add_all_selected(self):
-        """Selects all available tags."""
-        self.selected_items = [t[0] for t in self.tags]
-
-    @rx.event
-    def clear_selected(self):
-        """Clears all selected tags."""
-        self.selected_items.clear()
-
-    @rx.event
-    def random_selected(self):
-        """Selects a random number of random tags."""
-        all_tags = [t[0] for t in self.tags]
-        sample_size = random.randint(1, len(all_tags))
-        self.selected_items = random.sample(all_tags, k=sample_size)
+        return rx.toast.error("Post content cannot be empty.")
