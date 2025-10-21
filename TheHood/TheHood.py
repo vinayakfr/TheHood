@@ -1,8 +1,7 @@
 """Welcome to Reflex! This file outlines the steps to create a basic app."""
 
 import reflex as rx
-from assets.components.navbar import navbar
-from assets.components.post import post
+from assets.components.feed import feed
 from assets.components.sidebar import layout
 from TheHood.login import index as login
 from TheHood.signup import index as signup
@@ -24,12 +23,7 @@ def index() -> rx.Component:
             ),
             rx.container(
                 rx.scroll_area(
-                    rx.vstack(
-                        post("/photo.JPG"),
-                        post("Had a great day coding with Reflex!"),
-                        post("/photo.JPG"),
-                    spacing="4",
-                    ),
+                    feed(),
                     type="hover",
                     style={"height": "95vh"},
                 ),
