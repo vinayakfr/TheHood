@@ -1,64 +1,84 @@
 import reflex as rx
+from typing import TypedDict
+from TheHood.state.chip_state import ChipState
 
-def post(content):
-        # Text post (Responsive for Desktop and Mobile)
-        return rx.fragment(
-            # Desktop view
-            rx.desktop_only(
-                rx.hstack(
-                    rx.avatar(src="/logo.jpg", fallback="RX", size="3"),
-                    rx.card(
-                        rx.vstack(
-                            rx.text(
-                                content,
-                                font_size="xl",
-                                color=rx.color_mode_cond("black", "white"),
+
+class Post(TypedDict):
+    content: str
+    tags: list[tuple[str, str]]
+
+
+def post_tag_chip(tag: list[str]) -> rx.Component:
+    color_style = ChipState.color_map.get(tag[1], {"bg": "#f3f4f6", "text": "#374151"})
+    return rx.el.div(
+        tag[0],
+        style={"backgroundColor": color_style["bg"], "color": color_style["text"]},
+        class_name="px-3 py-1 text-xs font-semibold rounded-full",
+    )
+
+
+def post_component(post: Post) -> rx.Component:
+    """Component to display a single post with responsive layout."""
+    return rx.el.div(
+        rx.el.div(
+            rx.el.div(
+                rx.avatar(src="/logo.jpg", fallback="RX", size="3"),
+                rx.box(
+                    rx.el.div(
+                        rx.flex(
+                            rx.el.p(
+                                post["content"],
+                                class_name="text-base font-medium",
                             ),
                             rx.hstack(
-                                rx.icon(tag="thumbs-up", color="white", size=20),
-                                rx.icon(tag="thumbs-down", color="white", size=20),
-                                spacing="3",
-                                justify="start",
-                                width="100%",
+                                rx.icon(
+                                    "thumbs-up",
+                                    class_name="w-5 h-5 stroke-gray-500 hover:stroke-blue-600 cursor-pointer transition-colors",
+                                ),
+                                rx.icon(
+                                    "thumbs-down",
+                                    class_name="w-5 h-5 stroke-gray-500 hover:stroke-red-600 cursor-pointer transition-colors",
+                                ),
+                            class_name="flex items-center gap-4 mt-4",
                             ),
-                            spacing="2",
+                            width="100%",
+                            justify="between",
                         ),
-                        padding="10px",
-                        width="100%",
+                        rx.el.div(
+                            rx.foreach(post["tags"], post_tag_chip),
+                            class_name="flex flex-wrap gap-2 mt-2",
+                        ),
+                       
+                        class_name="flex flex-col",
                     ),
-                    justify="start",
-                    align="center",
-                    gap="7px",
                     width="100%",
+                    padding="5px",
                 ),
-                width="100%",
+                class_name="flex items-start justify-start gap-3 w-full",
             ),
-            # Mobile + Tablet view
-            rx.mobile_and_tablet(
-                rx.vstack(
-                    rx.avatar(src="/logo.jpg", fallback="RX", size="3"),
-                    rx.card(
-                        rx.vstack(
-                            rx.text(
-                                content,
-                                font_size="xl",
-                                color=rx.color_mode_cond("black", "white"),
-                            ),
-                            rx.hstack(
-                                rx.icon(tag="thumbs-up", color="white"),
-                                rx.icon(tag="thumbs-down", color="white"),
-                                spacing="3",
-                                justify="end",
-                                width="100%",
-                            ),
-                            spacing="2",
-                        ),
-                        padding="10px",
-                        width="100%",
+            class_name="hidden md:flex w-full",
+        ),
+        rx.el.div(
+            rx.el.div(
+                rx.el.div(
+                    rx.el.p(
+                        post["content"],
+                        class_name="text-base font-medium text-gray-800",
                     ),
-                    spacing="2",
-                    align="start",
-                    width="100%",
-                )
+                    rx.el.div(
+                        rx.foreach(post["tags"], post_tag_chip),
+                        class_name="flex flex-wrap gap-2 mt-3",
+                    ),
+                    rx.el.div(
+                        rx.icon("thumbs-up", class_name="w-5 h-5 stroke-gray-500"),
+                        rx.icon("thumbs-down", class_name="w-5 h-5 stroke-gray-500"),
+                        class_name="flex items-center gap-4 mt-3 self-end",
+                    ),
+                    class_name="p-2 w-full flex flex-col",
+                ),
+                class_name="flex flex-col items-start gap-3 w-full",
             ),
-        )
+            class_name="flex md:hidden w-full",
+        ),
+        class_name="w-full",
+    )
