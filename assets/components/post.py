@@ -33,11 +33,11 @@ def post_component(post: Post) -> rx.Component:
                             rx.hstack(
                                 rx.icon(
                                     "thumbs-up",
-                                    class_name="w-5 h-5 stroke-gray-500 hover:stroke-blue-600 cursor-pointer transition-colors",
+                                    class_name="w-5 h-5 stroke-white hover:stroke-blue-600 cursor-pointer transition-colors",
                                 ),
                                 rx.icon(
                                     "thumbs-down",
-                                    class_name="w-5 h-5 stroke-gray-500 hover:stroke-red-600 cursor-pointer transition-colors",
+                                    class_name="w-5 h-5 stroke-white hover:stroke-red-600 cursor-pointer transition-colors",
                                 ),
                             class_name="flex items-center gap-4 mt-4",
                             ),
@@ -52,7 +52,8 @@ def post_component(post: Post) -> rx.Component:
                         class_name="flex flex-col",
                     ),
                     width="100%",
-                    padding="5px",
+                    class_name="py-2 px-3 rounded-2xl",
+                    background_color=rx.color_mode_cond("white", "black"),
                 ),
                 class_name="flex items-start justify-start gap-3 w-full",
             ),

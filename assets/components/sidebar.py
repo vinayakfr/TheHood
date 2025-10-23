@@ -115,17 +115,20 @@ class ModalState(rx.State):
         self.is_open = False
 
 
-def tabs(text: str, color: str, on_click=None) -> rx.Component:
+def tabs(text: str, color: str, on_click=None, href=None) -> rx.Component:
     """Sidebar tab button."""
-    return rx.button(
-        text,
+    return rx.link(
+        rx.button(
+            text,
+            width="100%",
+            variant="soft",
+            color_scheme=color,
+            size="4",
+            radius="medium",
+            on_click=on_click,
+        ),
+        href=href,
         width="100%",
-        variant="soft",
-        color_scheme=color,
-        size="4",
-        radius="medium",
-        # The event must be passed as a callable, not a string
-        on_click=on_click,
     )
 
 
@@ -135,13 +138,14 @@ def sidebar():
         rx.flex(
             rx.text("The Hood", size="7", weight="bold", margin_bottom="20px"),
             rx.vstack(
-                tabs("Home", "iris"),
-                tabs("Members", "iris"),
-                tabs("Turfs", "iris"),
-                tabs("Talk (Coming Soon)", "red"),
+                tabs("Home", "iris", href="/"),
+                tabs("Members", "iris", href="/members"),
+                tabs("Turfs", "iris", href="/turfs"),
                 rx.separator(),
                 # Proper callable event binding
                 tabs("Post", "yellow", on_click=ModalState.open),
+                rx.separator(),
+                tabs("Rule Book", "jade"),
                 spacing="5",
             ),
             rx.hstack(
