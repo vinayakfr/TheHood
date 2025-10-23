@@ -1,10 +1,12 @@
 """Welcome to Reflex! This file outlines the steps to create a basic app."""
 
 import reflex as rx
+from TheHood.pages.members import members_page
+from TheHood.pages.rule_book import rule_book_page
 from assets.components.feed import feed
 from assets.components.sidebar import layout
-from TheHood.login import index as login
-from TheHood.signup import index as signup
+from TheHood.auth.login import index as login
+from TheHood.auth.signup import index as signup
 
 from rxconfig import config
 
@@ -39,6 +41,8 @@ def index() -> rx.Component:
     )
 
 app = rx.App()
-app.add_page(index)
+app.add_page(index, route="/")
 app.add_page(login, route="/login")
 app.add_page(signup, route="/signup")
+app.add_page(rule_book_page, route="/rule_book")
+app.add_page(members_page, route="/members")
