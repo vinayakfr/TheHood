@@ -21,7 +21,7 @@ def action_button(
 def item_chip(item: str, color: LiteralAccentColor, is_selected: bool) -> rx.Component:
     """A chip for a slang term."""
     color_style = ChipState.color_map.get(color, {"bg": "#f3f4f6", "text": "#374151"})
-    return rx.el.div(
+    return rx.badge(
         item,
         rx.icon(
             rx.cond(is_selected, "minus-circle", "plus-circle"),
@@ -29,8 +29,10 @@ def item_chip(item: str, color: LiteralAccentColor, is_selected: bool) -> rx.Com
             class_name="ml-2 opacity-70 group-hover:opacity-100 transition-opacity",
         ),
         on_click=lambda: ChipState.toggle_selection(item),
-        style={"backgroundColor": color_style["bg"], "color": color_style["text"]},
-        class_name="group flex items-center px-4 py-2 text-sm font-semibold rounded-full cursor-pointer hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-200",
+        # style={"backgroundColor": color_style["bg"], "color": color_style["text"]},
+        variant="soft",
+        color_scheme=color,
+        class_name="group flex items-center px-2 py-1 text-sm font-semibold rounded-full cursor-pointer hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-200",
     )
 
 
@@ -145,7 +147,7 @@ def sidebar():
                 # Proper callable event binding
                 tabs("Post", "yellow", on_click=ModalState.open),
                 rx.separator(),
-                tabs("Rule Book", "jade"),
+                tabs("Rule Book", "jade", href="/rule_book"),
                 spacing="5",
             ),
             rx.hstack(

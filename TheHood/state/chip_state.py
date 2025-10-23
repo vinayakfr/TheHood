@@ -121,4 +121,3 @@ class ChipState(rx.State):
             ]
             new_post = {"content": content, "tags": selected_tags_to_submit}
             self.posts.insert(0, new_post)
-        return rx.toast.error("Post content cannot be empty.")

@@ -10,9 +10,10 @@ class Post(TypedDict):
 
 def post_tag_chip(tag: list[str]) -> rx.Component:
     color_style = ChipState.color_map.get(tag[1], {"bg": "#f3f4f6", "text": "#374151"})
-    return rx.el.div(
+    return rx.badge(
         tag[0],
-        style={"backgroundColor": color_style["bg"], "color": color_style["text"]},
+        variant="soft",
+        color_scheme=tag[1],
         class_name="px-3 py-1 text-xs font-semibold rounded-full",
     )
 
